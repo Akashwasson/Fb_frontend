@@ -89,12 +89,11 @@ this.dataservice.getuserdata(this.email).subscribe(data => {
         this.posts = fpost.concat(this.posts)
        }
        else if(this.posts.length <1 && fpost!=undefined){
-         this.posts = fpost
+         this.posts = fpost.concat(this.posts)
        }
-       
+       this.postslength = this.posts.length;
    });
-
-    this.postslength = this.posts.length;
+    
     var sdata = this.posts.map(item => item.image);
     this.images.length=0;
     for(var i=0;i<sdata.length;i++){
