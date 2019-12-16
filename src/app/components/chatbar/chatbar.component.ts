@@ -278,7 +278,7 @@ this.notify.push(obj)
     top.classList.toggle('toggleminibar');
   }
 
-  //unsubscribing chat component
+  //unsubscribing the chat component
   ngOnDestroy() { 
     this.one.unsubscribe();
     this.two.unsubscribe();
