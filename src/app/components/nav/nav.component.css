@@ -1,0 +1,188 @@
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .topnav {
+    position: fixed;
+    overflow: hidden;
+    height: 45px;
+    background-color: #4267b2;;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  .profimg{
+    margin-left: 44px;
+    float: left;
+  }
+  .profimg img{
+    z-index: 1;
+    border-radius: 50%;
+    float: left;
+    margin-top: 14px;
+}
+
+ .topnav .btns{
+   position: absolute;
+   left:47%;
+ }
+
+ .topnav .btns .profimg a{
+   margin-left: 0px;
+ }
+  .topnav a {
+    display: block;
+    float: left;
+    margin-left: 10px;
+    color: white;
+    text-align: center;
+    padding: 14px 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+  } 
+  .topnav a.active {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .topnav .search-container {
+    float:none;
+    margin-left: 10%;
+  
+  }
+  
+  .topnav input[type=text] {
+    margin-top: 8px;
+    width: 30%;
+    border: none;
+    padding-left: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+ 
+  #btn1{ 
+    font-size: 34px;
+    margin-top: -20px;
+    border: none;
+    margin-right: 10px;
+  }
+  #btn2 {
+    height: 26px;
+    margin-top: 8px;
+    margin-right: 19%;
+    border: none;
+    cursor: pointer;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  .fa{
+    padding-left: 10px;
+  }
+ 
+  .badge {
+    position: relative;
+    top: -22px;
+    left: -10px;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: red;
+    font-size: 1px;
+  }
+
+  #dropdown a{
+    cursor: pointer;
+    color: black;
+    margin-left: 56px;
+    font-size: initial;
+    font-weight: 400; 
+}
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /* padding-top: 100px;  */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scroll if needed */
+    
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    padding: 0;
+    border: 1px solid #888;
+    width: 212px;
+    margin-left: 54%;
+    margin-top: 47px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  /* The Close Button */
+  .close {
+    color: navy;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  
+  .modal-body {padding: 2px 6px;}
+  .modal-body #post{
+      height: 200px;
+  }
+
+
+  @media screen and (max-width: 1120px){
+    .topnav .search-container{
+      margin-left: 0%;
+    }
+    .topnav .btns{
+      position: absolute;
+      left:40%;
+    }
+    .topnav input[type=text] {
+     width: 25%;  
+    }
+    .topnav a{
+      margin-left: 1px;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .fa{
+      padding: 0px;
+    }
+    .topnav .search-container {
+      float:none;
+      margin-left: 0%;
+    }
+    #btn1{
+      margin-right: 0px;
+    }
+    .topnav a{
+      margin-left: 1px;
+      padding: 14px 2px;
+    }
+     .topnav .btns{
+      position: absolute;
+      left:23%;
+    }
+    .topnav input[type=text] {
+      width: 15%; 
+    }
+  }

@@ -1,0 +1,83 @@
+
+.sidenav {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 8%;
+    left: 50px;
+    cursor: pointer;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 16px 8px 16px 6px;
+    text-decoration: none;
+    font-size: 20px;
+    color:black;
+    display: block;
+    z-index: 1;
+    font-size: 15px;
+    margin-top: -12px;
+  }
+  
+  .sidenav a:hover {
+    color: #385898;
+  }
+  
+  .main {
+    float: right;
+  }
+  .profimg{
+    margin-left: 4px;
+  }
+  .effect{
+    border: 1px solid black;
+    height: 30px;
+    background-color: white;
+  }
+   .profimg img{
+    z-index: 1;
+    border-radius: 50%;
+    float: left;
+}
+.profimg a {
+  float: left;
+  margin-top: -18px;
+  
+}
+.fa{
+  float: left;
+  margin-right: 10px;
+  margin-top: 6px;
+}
+.badge {
+  position: relative;
+  top: -10px;
+  left: 4px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: red;
+  font-size: 1px;
+}
+
+@media screen and (max-width: 1420px){
+  .sidenav{
+    left: -50px;
+  }
+}
+
+@media screen and (max-width: 1120px){
+  .sidenav{
+    left: -90px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sidenav {
+    display: none;
+  }
+  
+}

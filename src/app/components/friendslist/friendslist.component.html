@@ -1,0 +1,43 @@
+<app-nav></app-nav>
+<div class="ext">
+    <div class="main">
+        <div class="upperside common">
+            <div class="cover common"><img src="http://localhost:4000/{{coverpic}}"  height="310" width="850"> </div>
+            <div class="profimg"><img src="http://localhost:4000/{{profilepic}}" height="160" width="160"></div>
+            <div class="name">{{username}}</div>
+            <div class="btns">
+                <ul>    
+                    <li><a role="button">About</a></li> 
+                    <li><a routerLink="/friendslist">Friends</a></li> 
+                    <li><a routerLink="/photos">Photos</a></li>
+                </ul>
+            </div>
+            </div> 
+        <div class="outer">
+            <div class="text"><i class="fa fa-users"  aria-hidden="true"></i>
+                Friends
+            </div><br><hr>
+              
+            <div class="friendslist">
+                    <div *ngIf="friends.length ==0" style="background-color: #f7f7f7;"><h6 class="nofriends">
+                            No Friends</h6></div>
+                <div  *ngFor='let obj of friends' id="friend_{{obj._id}}">
+                    <div class="repeat" *ngFor="let obj1 of obj.profilepic">
+                    <img  src="http://localhost:4000/{{obj1.profilepic}}"  height="100" width="100"/>
+                    <div class="head"><a  (click)="emailfun(obj.email)" routerLink="/userprofile" >{{obj.username}}</a></div><br>
+                    <div class="dropdown"> 
+                        <button class="dropbtn"><i class="fa fa-check" aria-hidden="true"></i> Friends</button>  
+                        <div class="dropdown-content">
+                                <a role="button" (click)="unfriendfun(obj._id,obj.email)">Unfriend</a>
+                              </div>            
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+
+        </div>
+            
+    </div>
+</div>     
+<app-chatbar></app-chatbar>             

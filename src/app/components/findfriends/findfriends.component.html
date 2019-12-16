@@ -1,0 +1,24 @@
+<app-nav></app-nav>
+
+<div class="main">
+    <div class="friends">
+        <h2 class="text">People You May Know</h2>
+        <hr>
+    </div>
+    <div class="friendslist">
+        <div *ngIf="userdata.length==0" style="padding: 20px; margin-left: 240px;"><h3>No Users</h3></div>
+        <div *ngFor='let obj of userdata; let i=index' id="friend_{{obj._id}}">
+            <div  *ngFor="let obj1 of obj.profilepic">
+            <div class="repeat" >        
+                <img  src="http://localhost:4000/{{obj1.profilepic}}"  height="80" width="80"/>
+            <div class="head"><a (click)="emailfun(obj.email)" routerLink="/userprofile" target="_blank">{{obj.username}}</a></div><br>
+            <div class="btn2"> 
+                <button (click)="addfriends(obj._id)"><i class="fa fa-user-plus" aria-hidden="true"></i> Add friend</button> 
+                <a role="button" class="remove" (click)="removebtn(obj._id)"> Remove</a>
+                </div>
+         </div><hr>
+       </div>
+    </div>
+    </div>
+</div>
+<app-chatbar></app-chatbar>

@@ -1,0 +1,51 @@
+<div class="nav">
+        <app-nav></app-nav>
+    </div>
+      <!-- update user profilepic and coverpic here -->
+    <div class="uploadimg">
+      <h2 style="margin-bottom: 30px;margin-left: 110px;">   # Edit Profile and Cover pic:</h2>
+        <div style="margin-left: 140px; padding: 30px 0;">
+            <!-- profile pic -->
+            <h4>1. Upload profile pic:</h4> <br>
+            <input type="file" (change)="onFileSelected($event)"> 
+            <button class="btn btn-primary" (click)="profilepic()">upload</button><br>
+                <!-- coverpic -->
+            <h4 style="margin-top: 70px;">2. Upload cover pic:</h4> <br>
+            <input type="file" (change)="onFileSelected($event)"> 
+            <button class="btn btn-primary" (click)="coverpic()">upload</button><br>
+        </div>        
+     </div>
+    
+     <!-- update user intro section -->
+    <div class="ext">
+        <div class="container">
+            <h2 style="margin-bottom: 25px;"># Personal Information:</h2>
+        <form [formGroup]="infoForm" >
+        <div id="intro">
+            <div class="form-group"> Work:
+                <input class="form-control" type="text" name="work" formControlName="work"/><br>
+            </div>
+            <div class="form-group">College:
+                <input class="form-control"  type="text" name="college" formControlName="college"/><br>
+            </div>
+            <div class="form-group">School:
+                <input class="form-control"  type="text" name="school" formControlName="school"/><br>
+            </div>
+            <div class="form-group">Instagram Id:
+                <input class="form-control" type="text" name="instagram" formControlName="instagram"/><br>
+            </div>
+            <div class="form-group">Mail:
+                <input class="form-control" type="mail" name="mail" formControlName="mail"/><br>
+            </div>
+            <div class="form-group">Lives in:
+                <input class="form-control" type="text" name="live" formControlName="live"/><br>
+            </div>
+            <div class="form-group">From:
+                <input class="form-control" type="text" name="from" formControlName="from"/><br>
+            </div>
+            
+        </div>
+        <button type="submit"  class="btn btn-primary"  (click)="information()">Done</button>
+        </form>
+    </div>
+    </div>

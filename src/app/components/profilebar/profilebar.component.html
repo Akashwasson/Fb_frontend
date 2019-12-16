@@ -1,0 +1,12 @@
+<div class="sidenav">
+      <div class="main">
+            <div class="profimg"><img src="http://localhost:4000/{{profilepic}}" height="20" width="20">
+                  <a  (click)="emailfun()" routerLink="/userprofile">{{username}}</a></div> <br> <br>
+            <div style="margin-top: -27px;">
+                  <a routerLink="/friendslist"><i class= "fa fa-list-ul" aria-hidden="true"></i> Friend Lists</a>
+                  <a routerLink="/findfriends"><i class="fa fa-user-plus" aria-hidden="true"></i>Find Friends</a>
+                  <a routerLink="/friendrequests"><i class="fa fa-user" aria-hidden="true"></i>Friend Requests<div class="badge" *ngIf="blength >0">.</div></a>
+                  <a routerLink="/photos"><i class="fa fa-picture-o" aria-hidden="true"></i> Photos</a>      
+            </div> 
+      </div>
+  </div>

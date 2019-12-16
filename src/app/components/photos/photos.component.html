@@ -1,0 +1,35 @@
+<app-nav></app-nav>
+<div class="ext">
+        <div class="main">
+        <div class="upperside common">
+            <div class="cover common"><img src="http://localhost:4000/{{coverpic}}"  height="310" width="850"> </div>
+            <div class="profimg"><img src="http://localhost:4000/{{profilepic}}" height="160" width="160"></div>
+            <div class="name">{{username}}</div>
+            <div class="btns">
+                <ul>    
+                    <li><a role="button">About</a></li> 
+                    <li><a routerLink="/friendslist">Friends</a></li> 
+                    <li><a routerLink="/photos">Photos</a></li>
+                </ul>
+            </div>
+         </div> 
+                <div class="outer">
+                    <div class="text"><i class="fa fa-picture-o" aria-hidden="true"></i>
+                       Photos
+                    </div>
+                    <div *ngFor= "let obj of posts"  id="{{obj._id}}">
+                    <div class="photos">
+                            <div class="pic common" *ngIf='obj.image !="" '>
+                              <a href="http://localhost:4000/posts/{{obj.image}}" data-lightbox="gallery"><img src="http://localhost:4000/posts/{{obj.image}}" height="195" width="195"></a>
+                            </div>                          
+                    </div>        
+               </div><br>
+               <div *ngIf="display == false"><h5 style="margin-left: 40%;">No Photos</h5></div>
+
+                </div>
+
+          </div>
+
+
+</div>     
+<app-chatbar></app-chatbar>             

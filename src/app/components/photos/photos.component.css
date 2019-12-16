@@ -1,0 +1,115 @@
+.ext{
+    background-color: #e6eaf3;
+}
+.common{
+    border: 1px solid #dddfe2;
+    background-color: white;
+}
+.main {
+    position: relative;
+    top: 39px;;
+    left: 10%;
+    width: 850px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 300px;
+}
+ .upperside{
+    top: 0px;
+    height: 355px;
+}
+ .upperside .cover{
+    top: 0px;
+    height: 310px;
+    width:850px;
+}
+ .upperside .profimg{
+    position: absolute;
+    top:190px;   
+}
+ .upperside .name{
+    position: absolute;
+    top:250px;  
+    left: 190px;
+    font-size: 25px;
+    font-weight: bold;
+    color: white; 
+}
+ .upperside .profimg img{
+    z-index: 40;
+    border: 5px solid white;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+ .uperside .extbtn{
+    background-color: white;
+}
+ .upperside .btns{
+    position: absolute;
+    top: 320px;
+    right: 250px;
+   
+}
+ .upperside .btns li{
+   padding: 0 17px; 
+   list-style: none;
+    float: left;
+    margin-right: 20px;
+    border-right: 1px solid #e9eaed;
+}
+ .upperside .btns li a{
+    color: #385898;
+    cursor: pointer;
+    font-size: 14px;
+    height: 43px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.outer{
+    position: relative;
+    display: block;
+    left: 0px;
+    width: 850px;
+    margin-top: 30px;
+    height: 100%;
+    overflow: hidden;
+    margin-bottom: 300px;
+    background-color: #f7f7f7;
+    border: 1px solid #dddfe2;
+}
+.inner{
+    /* display: inline-block; */
+    float: left;
+}
+.text{
+    float: left;
+    margin-left: 10px;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgb(75, 79, 86);
+}
+.fa{
+    color: gray;
+}
+.photos{
+    display: block;
+    margin: 50px 2px;
+    background-color: white;
+    
+}
+ .pic{
+    /* display: inline-block; */
+    float: left;
+    margin: 5px 2px 7px 10px;
+}
+
+ .photos img{
+float: left;
+}
+
+@media screen and (max-width: 1050px){
+    .main{
+        left:5%;
+    }
+ }

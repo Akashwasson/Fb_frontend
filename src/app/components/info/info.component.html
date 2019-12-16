@@ -1,0 +1,77 @@
+<div class="nav">
+    <app-nav></app-nav>
+</div>
+
+<div  *ngIf="display== true">
+    <div class="frndouter">
+      <div><h3>Step 1</h3></div>
+    </div>
+    <!-- showing some users from database -->
+    <div class="friendslist"><br>
+        <div style="font-weight: bold;"><h5>Add Friends</h5></div>
+        <div  style="font-size: small;">Select your friends from the list below</div><br><br>
+        <div *ngIf="userdata.length==0" style="margin-left: 280px;"><h3>No Users</h3></div>
+        <div *ngFor='let obj of userdata; let i=index' id="friend_{{obj._id}}">
+            <div  *ngFor="let obj1 of obj.profilepic">
+            <div class="repeat"  *ngIf="i<= 9" >        
+                <img  src="http://localhost:4000/{{obj1.profilepic}}"  height="50" width="50"/>
+            <div class="head" style="margin-left:10px; font-weight:bold ;">{{obj.username}}
+            </div><br>
+            <div class="btn2"> 
+                <button (click)="addfriends(obj._id)"> Add friend</button> 
+                </div>
+            </div><hr>
+        </div>
+        </div>
+        <button  style="margin-top: 20px;margin-bottom: 10px; margin-left: 600px;" (click)=function()>
+            Next</button>
+    </div>
+</div>
+
+  <!-- uploading profilepic and coverpic -->
+<div class="uploadimg" *ngIf="display1== true">
+        <!-- profile pic -->
+       <h2>1. Upload profile pic:</h2> <br>
+       <input type="file" (change)="onFileSelected($event)"> 
+       <button class="btn btn-primary" (click)="profilepic()">upload</button><br>
+           <!-- coverpic -->
+       <h2 style="margin-top: 70px;">2. Upload cover pic:</h2> <br>
+       <input type="file" (change)="onFileSelected($event)"> 
+       <button class="btn btn-primary" (click)="coverpic()">upload</button><br>
+       <button class="btn btn-primary" style="margin-top: 20px;" (click)=function1()>
+           Next</button>
+   </div>
+
+   <!-- user information/intro details -->
+<div class="ext" *ngIf="display2== true">
+    <div class="container">
+        <h2 style="margin-bottom: 30px;">About:</h2>
+    <form [formGroup]="infoForm" >
+    <div id="intro">
+        <div class="form-group"> Work:
+            <input class="form-control" type="text" name="work" formControlName="work" /><br>
+        </div>
+        <div class="form-group">College:
+            <input class="form-control"  type="text" name="college" formControlName="college" /><br>
+        </div>
+        <div class="form-group">School:
+            <input class="form-control"  type="text" name="school" formControlName="school" /><br>
+        </div>
+        <div class="form-group">Instagram Id:
+            <input class="form-control" type="text" name="instagram" formControlName="instagram" /><br>
+        </div>
+        <div class="form-group">Mail:
+            <input class="form-control" type="mail" name="mail" formControlName="mail" /><br>
+        </div>
+        <div class="form-group">Lives in:
+            <input class="form-control" type="text" name="live" formControlName="live" /><br>
+        </div>
+        <div class="form-group">From:
+            <input class="form-control" type="text" name="from" formControlName="from" /><br>
+        </div>
+        
+    </div>
+    <button type="submit"  class="btn btn-primary"  (click)="information()">Done</button>
+    </form>
+</div>
+</div>

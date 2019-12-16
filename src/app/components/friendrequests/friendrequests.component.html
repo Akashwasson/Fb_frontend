@@ -1,0 +1,27 @@
+<app-nav></app-nav>
+
+<div class="main">
+    <div class="friends">
+        <h2 class="text">People You May Know</h2>
+        <hr>
+    </div>
+    <div class="friendslist">
+            <div *ngIf="requests.length<1" style="padding: 20px; margin-left: 173px; ">
+                <h4>No friend request</h4></div>
+        <div *ngFor='let obj of requests; let i=index' id="friend_{{obj._id}}">
+     
+            <div  *ngFor="let obj1 of obj.profilepic">
+            <div class="repeat" >        
+                <img  src="http://localhost:4000/{{obj1.profilepic}}"  height="80" width="80"/>
+            <div class="head"><a role="button">{{obj.username}}</a></div><br>
+            <div class="btn2"> 
+                <button (click)="confirmrqst(obj._id,obj.email)"><i class="fa fa-user-plus" aria-hidden="true"></i>Confirm</button> 
+                <a role="button" class="remove" (click)="rejectrqst(obj._id)"> Delete</a>
+                </div>
+         </div><hr>
+       </div>
+    
+    </div>
+    </div>
+</div>
+<app-chatbar></app-chatbar>

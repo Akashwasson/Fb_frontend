@@ -1,0 +1,141 @@
+<div class="ext">
+  <div class="main">
+    <div class="upload common">
+      <div class="btn">
+        <!-- models will popup here for uploading the text,image and video post -->
+          <ul>   
+            <!-- simple text can be posted here -->
+              <li><a role="button" id="myBtn" (click)='poptext()' > <i class="fa fa-pencil"></i>Create Post</a></li> 
+              <div id="myModal" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h5><i class="fa fa-pencil"></i>Create Post</h5>
+                      <span class="close" (click)='closepop()' >&times;</span>
+                    </div>
+                    <div class="modal-body">
+                      <img src="http://localhost:4000/{{profilepic}}" height="40" width="40" >
+                      <input id="post11" type="text" placeholder="What's on your mind?"  (focusout) = "focusoutHandler($event)" ><br>
+                      <button class="postbtn" type="submit" (click)=addpost1()>Post</button>                  
+                    </div>              
+                  </div>               
+                </div>
+
+                <!-- text+image can be posted here -->
+              <li><a role="button" id="myBtn" (click)='popimg()' ><i class="fa fa-camera"></i>Photo</a></li>
+              <div id="myModal1" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h5><i class="fa fa-camera"></i>Image</h5>
+                      <span class="close" (click)='closepop()' >&times;</span>
+                    </div>
+                    <div class="modal-body">
+                      <img src="http://localhost:4000/{{profilepic}}" height="40" width="40" >
+                      <input id="post1" type="text" placeholder="What's on your mind?" (focusout) = "focusoutHandler($event)"><br>
+                      <input type="file" (change)="onFileSelected($event)"> <br>
+                      <button class="postbtn" type="submit" (click)=addpost1()>Post</button>                   
+                    </div>               
+                  </div>                 
+               </div> 
+                    <!-- text+video can be posted here -->
+              <li><a role="button" id="myBtn" (click)='popvideo()' ><i class="fa fa-video-camera"></i>Video</a></li>
+              <div id="myModal2" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h5><i class="fa fa-video-camera"></i>Video</h5>
+                      <span class="close" (click)='closepop()' >&times;</span>
+                    </div>
+                    <div class="modal-body">
+                      <img src="http://localhost:4000/{{profilepic}}" height="40" width="40" >
+                      <input id="post2" type="text"  [(ngModel)]="value3" placeholder="What's on your mind?"><br>
+                      <input type="file" (change)="onFileSelected($event)"><br>
+                      <button class="postbtn" type="submit" (click)='videopost(value3)'>Post</button>                  
+                    </div>                
+                  </div>                   
+                </div>   
+              <li><a role="button">  </a></li> 
+          </ul>
+       </div>     
+          <img src="http://localhost:4000/{{profilepic}}" height="40" width="40" >
+          <input id="post" type="text" placeholder="What's on your mind?"  [(ngModel)]="value4" (focusout) = "focusoutHandler($event)"><br>         
+          <button class="mainbtn" type="submit" [disabled]="!value4"  (click)='addpost1()' >Post</button>       
+    </div>
+
+      <!-- displaying posts getting from database -->
+      
+      <div class="extpost">
+        <div class="post common" *ngFor= "let obj of posts"  id="{{obj._id}}">
+            <div *ngIf='obj.image !="" || obj.image !=null || obj.text_post !="" || obj.text_post !=null'> 
+              <div class="head"  *ngFor= "let obj1 of obj.profilepic"><img  src= "http://localhost:4000/{{obj1.profilepic}}" height="40" width="40"/></div>
+              <div class="head"><a (click)="emailfun(obj.email)" routerLink="/userprofile" target="_blank">{{obj.username}}
+                <div class="date">{{obj.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</div></a></div>              
+              <div class="body"><br>
+                <div *ngIf= 'obj1!=""'>
+                  <div class="textpost">{{obj.text_post}}</div>
+                  <img  *ngIf='obj.image !=""' src="http://localhost:4000/posts/{{obj.image}}"  width="500" alt="">
+                  <video *ngIf="obj.video !=''"  width="500" controls>
+                    <source src="http://localhost:4000/posts/{{obj.video}}" type="video/mp4">
+                  </video>
+                </div>
+               </div><hr>
+           <div *ngIf='obj.likes.length !=0 || obj.comments.length !=0'>
+             <div class="likesshow"  *ngIf='obj.likes.length !=0'>   
+                <img src="assets/images/like.png"  height="20" width="20"/>               
+                  <div class="likes"> {{obj.likes.length}} </div>        
+              </div>
+              <div class="cmt" *ngIf='obj.comments.length !=0'>{{obj.comments.length}} Comments</div> <hr style="margin-top: 1.2rem;">
+           </div>         
+              <div class="footer">
+                  <ul>   
+                      <li *ngIf="obj.likes != userid"><a role="button" (click)="addlikes(obj._id)"> <i  class="fa fa-thumbs-o-up"></i>Like</a></li> 
+                      <li *ngIf="obj.likes == userid"><a role="button" (click)="addlikes(obj._id)" style="margin-left:-19px ;">
+                        <img src="assets/images/fblike.jpg" height="30" width="50"/>Like</a></li> 
+                      <li><a role="button"> <i class="fa fa-comment-o"></i>Comment</a></li>
+                      <li *ngIf="obj.userid != userid"><a role="button" (click)="sharepost(obj._id)"> <i class="fa fa-share-square-o"></i>Share</a></li>
+                  </ul><hr>
+                  
+                  <div class="postedcmt" *ngIf='obj.comments!=""' >
+                      <div *ngFor='let objs of obj.comments'> 
+                      <div *ngFor= "let obj1 of objs.userid">
+                          <div *ngFor = 'let obj2 of obj1.profilepic'>
+                            <img  src="http://localhost:4000/{{obj2.profilepic}}"  height="30" width="30"/>
+                          </div>
+                          <a  (click)="emailfun(obj1.email)" routerLink="/userprofile" target="_blank">{{obj1.username}}</a>
+                      </div>
+                      
+                      <div class="textcmt">{{objs.comment_post}}
+                          <!-- <div class="cmtbtn" ><a role="button">Like.</a>
+                          <a role="button">Reply.</a>
+                          </div> -->
+                      </div>  <br><br>
+                      </div> 
+                  </div>
+                  <!-- this is comment box -->
+                    <div class="comment">
+                        <img src= "http://localhost:4000/{{profilepic}}"   height="30" width="30"/>
+                        <input class="commentbox" id="cmt_{{obj._id}}" placeholder="  write a comment here" (focusout) = "focusoutHandlerComments($event)" type="text" (keyup.enter)="comment(obj._id,$event.target.value)">
+                        <a role="button" (click)="comment(obj._id)"><i class="fa fa-paper-plane"></i></a>
+                    </div>
+              </div> 
+          </div>    
+      </div> 
+      
+      </div>
+       <!-- displaying posts end here -->
+      <div class="addfriends common">
+          <div class="text">People you may know</div><hr>          
+              <div  *ngFor='let obj of newuserdata; let i=index' id="friend_{{obj._id}}">
+                  <div *ngFor="let obj1 of obj.profilepic" > <div class="repeat" *ngIf='i<=2'>
+                  <div class="head"><img  src="http://localhost:4000/{{obj1.profilepic}}"  height="60" width="60"/></div>
+                  <div class="head"><a (click)="emailfun(obj.email)" routerLink="/userprofile" target="_blank" >{{obj.username}}</a></div><br><br>
+                  <div class="btn2"> <button (click)="addfriends(obj._id)"><i class="fa fa-user-plus" aria-hidden="true"></i>Add friend</button>
+                  <button (click)="removebtn(obj._id)">Remove</button></div>
+              </div>
+            </div>
+          </div>
+            <div *ngIf="newuserdata.length==0" class="addfrnd"><h4>No Users</h4></div>
+      </div>     
+</div>
+ </div>

@@ -1,0 +1,116 @@
+
+.form-group{
+    width: 40%;
+}
+.container{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 140px;
+   width: 100%;
+   height: 50%;
+   background-color: #e6eaf3;
+} 
+
+.ext{
+ position: relative;
+background-color: #e6eaf3;
+overflow-x: hidden;
+}
+.uploadimg{
+    position: relative;
+    margin-top: 100px;
+    background-color: #e6eaf3;
+    overflow-x: hidden;
+    border: 1px solid lightgray;
+    
+}
+.uploadimg input{
+    margin-left: 10%;
+}
+.uploadimg h2{
+    margin-left: 20px;
+    color: darkslategray;
+}
+.uploadimg button{
+    margin-left: 192px;
+    /* margin-top: 40px; */
+    margin-top: -60px;
+}
+.inputheigth{
+    height: 100px;
+}
+.nav{
+    position: absolute;
+    top: 0px;
+}
+.frndouter{
+    top: 110px;
+    position: absolute;
+    margin-left: 25%;
+    width: 700px;
+    padding: 10px;
+    background-color: #fff;
+}
+.friendslist{
+    position: absolute;
+    top: 60px;
+    padding: 0 10px 0 10px;
+    background-color: #fff;
+    width: 700px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-left: 25%;
+    margin-top: 10%;
+}
+.repeat{
+    display: block;
+}
+.repeat img{
+    display: inline-block;
+    border-radius: 50%;
+}
+.head{
+    display: inline-block;
+}
+.head a{
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 22px;
+    color: #385898;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn2{
+    position: relative;
+    margin-top: -40px;
+    float: right;
+    font-size: 13px;
+    
+}
+.btn2 button{
+    background-color: #3d5b99;
+    color: white;
+    margin-right: 35px;
+    border: 1px solid;
+    border-radius: 2px;
+    box-sizing: content-box;
+    padding: 2px 8px;
+    font-weight: bold;
+}
+.btn2 a{
+    display: inline-block;
+    background-color: #f5f6f7;
+    border-color: #ccd0d5;
+    color: #4b4f56;
+    border: 1px solid;
+    border-radius: 2px;
+    box-sizing: content-box;
+    padding: 2px 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.remove {
+    display: none;
+}
