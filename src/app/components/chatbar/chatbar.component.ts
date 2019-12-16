@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// import {OnDestroy } from '@angular/core'; 
 import {List} from '../../models/list';
 import {chat} from '../../models/chat';
 import {ChatService} from '../../services/chat.service';
 import {DataService} from '../../services/data.service';
 import {userdata} from '../../models/userdata';
-import {socket} from '../../models/socket';
 import * as moment from 'moment';
 
 
@@ -43,17 +41,10 @@ export class ChatbarComponent implements OnInit {
 
   ngOnInit() {
       this.loadchats.length =0;
-<<<<<<< HEAD
       this.msgseen.length = 0;
     
     //loading all chats history 
     this.one = this.chatService.getPrevMessages().subscribe((data)=>{
-=======
-    
-    //loading all chats history 
-    this.chatService.getPrevMessages().subscribe((data)=>{
-       
->>>>>>> 156453ca7ac23f73e9f9d31c904120ad32caa062
       if(data != null){
         this.loadchats.push(data); 
         var sender = data.messages;
@@ -76,12 +67,8 @@ export class ChatbarComponent implements OnInit {
         if(this.loadchats.length >0){
           setTimeout(() => {
             this.scrollfun(this.chatbox)
-<<<<<<< HEAD
           }, 100);
         }
-=======
-          }, 50);
->>>>>>> 156453ca7ac23f73e9f9d31c904120ad32caa062
                  
           this.chatService.seen(array);
       } else{
