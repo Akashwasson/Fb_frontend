@@ -81,12 +81,15 @@ this.dataservice.getuserdata(this.email).subscribe(data => {
     // these are all posts
     this.posts = data
     //getting shared posts
-  this.dataservice.getsharedpostbyid(userid).subscribe(data=>{
+   this.dataservice.getsharedpostbyid(userid).subscribe(data=>{
     let sharedpost=data.map(item=>item.posts)
        var fpost=sharedpost;
-       fpost = fpost.pop()
-       if(fpost !=undefined){
+       fpost = fpost.pop();
+       if(fpost !=undefined && fpost.length>0 && this.posts.length >0){
         this.posts = fpost.concat(this.posts)
+       }
+       else if(this.posts.length <1 && fpost!=undefined){
+         this.posts = fpost
        }
        
    });
