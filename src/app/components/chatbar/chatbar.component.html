@@ -3,7 +3,6 @@
      <div *ngIf='obj.friendsid=="" || obj.friendsid==null' style="margin-left: 68px;"><h5>No user </h5></div>
        <div *ngIf='obj.friendsid!=""'>
         <div class="sidebar-name"  *ngFor ="let obj1 of obj.friendsid">
-
                 <span *ngFor ="let obj2 of obj1.profilepic;let k = index" (click)="register_popup(obj1._id, obj1.username,obj2.profilepic)">
                      <img  src="http://localhost:4000/{{obj2.profilepic}}" height="32" width="32"/>{{obj1.username}}
                      <div *ngFor="let obj4 of notify">
@@ -54,103 +53,100 @@
                     <!-- creating chatbox on clicking on friend name-->
                     
 <div class="forwindows">
-     <div  *ngFor='let obj of userlist;let i=index'>
-       <div *ngIf='i<3'>
-               <!-- for chating with new friend -->
-          <div *ngIf="loadchats.length == 0">
-               <div class="popup-box myblock" *ngIf='i<3' id="chat_{{obj.id}}" >
+<div  *ngFor='let obj of userlist;let i=index'>
+<div *ngIf='i<3'>
+     <!-- for chating with new friend -->
+
+<!-- for cahting with old friend -->
+<div class="popup-box myblock"  id="chat_{{obj.id}}">
+     <div class="popup-head"   (click)="togglemin(obj.id)">
+          <div class="popup-head-left">
+               <img src="http://localhost:4000/{{obj.profilepic}}"  height="30" width="30"/>   {{obj.name}}
+          </div>  
+          <div class="popup-head-right" (click)="remove(obj.id)">X</div>                  
+          <div class="clear"></div> 
+     </div>
      
-                    <div class="popup-head"   (click)="togglemin(obj.id)">
-                         <div class="popup-head-left">
-                                   <img src="http://localhost:4000/{{obj.profilepic}}"  height="30" width="30"/>   {{obj.name}}
-                         </div>  
-                         <div class="popup-head-right" (click)="remove(obj.id)">X</div> 
-                         
-                         <div class="clear"></div> 
-                    </div>
-                    
-                    <div class="popup-messages" id="chatwindow_{{obj.id}}"></div>
-     
-                    <div class="inputbtn" id="btn_{{obj.id}}"> 
-                         <input id="msg_{{obj.id}}" type="text" placeholder="  Type a message" (keyup.enter)="send(obj.id,obj.name)">   
-                         <button type="submit" (click)="send(obj.id,obj.name)">Send</button> 
-                    </div>    
-                    
-               </div>
+<!-- for first time chat with a friend -->
+<div *ngIf="loadchats.length == 0">                   
+<div class="popup-messages" id="chatwindow_{{obj.id}}"></div>
+</div>
+
+<div *ngFor="let objs of loadchats">
+<div *ngFor="let users of objs.participants ">                                       
+     <div class="popup-messages" id="chatwindow_{{obj.id}}"  *ngIf="users.id == obj.id">                                         
+          <div *ngFor="let usermsgs of objs.messages;let k=index">
+          <a> <div *ngIf="usermsgs.sender != obj.id" style=" clear:both;">    
+               <div class="msg1">
+                    {{usermsgs.message}}<br>
+                    <div style="float: right; ;color: #999;font-size: 13px;" >
+                         {{usermsgs.createdAt | date: ' hh:mm a'}} <br>
+                         <div *ngIf="usermsgs.seenAt!=null" class="showme">
+                              {{usermsgs.seenAt| date:'dd/MM/yyyy hh:mm a'}}
+                              </div>
+                              <!-- this seenAt will work on live chat -->
+                         <div *ngFor="let seen of msgseen">                   
+                              <div *ngIf="seen.messageId == usermsgs._id" class="showme">
+                                   
+                                   {{seen.seenAt| date:'dd/MM/yyyy hh:mm a'}}
+                              </div>
+                         </div>
+                    </div>                                              
+               </div> 
+                                                                      
           </div>
-          <!-- for cahting with old friend -->
-         <div *ngFor="let objs of loadchats">
-          <div *ngFor="let users of objs.participants ">
-            <div class="popup-box myblock"  id="chat_{{obj.id}}"  *ngIf="users.id == obj.id">
-               <div class="popup-head"   (click)="togglemin(obj.id)">
-                    <div class="popup-head-left">
-                      <img src="http://localhost:4000/{{obj.profilepic}}"  height="30" width="30"/>   {{obj.name}}
-                    </div>  
-                    <div class="popup-head-right" (click)="remove(obj.id)">X</div>                  
-                    <div class="clear"></div> 
-               </div>
-                                        
-               <div class="popup-messages" id="chatwindow_{{obj.id}}"  (load)="scrollfun(obj.id)">                                         
-                 <div *ngFor="let usermsgs of objs.messages;let k=index">
-                  <a> <div *ngIf="usermsgs.sender != obj.id" style=" clear:both;">    
-                         <div class="msg1">
-                              {{usermsgs.message}}<br>
-                              <div style="float: right; ;color: #999;font-size: 13px;" >
-                                   {{usermsgs.createdAt | date: ' hh:mm a'}} <br>
-                                   <div *ngIf="usermsgs.seenAt!=null" class="showme">
-                                        {{usermsgs.seenAt| date:'dd/MM/yyyy hh:mm a'}}
-                                       </div>
-                                       <!-- this seenAt will work on live chat -->
-                                  <div *ngFor="let seen of msgseen">                   
-                                     <div *ngIf="seen.messageId == usermsgs._id" class="showme">
-                                          
-                                          {{seen.seenAt| date:'dd/MM/yyyy hh:mm a'}}
-                                     </div>
-                                  </div>
-                              </div>                                              
-                         </div> 
-                                                                                
-                    </div>
-                    </a>
+          </a>
+
+          <div *ngIf="usermsgs.sender == obj.id" style=" clear:both;">
+          <p class="msg2">
+               {{usermsgs.message}}
+               <br>
+               <span style="float: left;color: #999;font-size: 13px;">
+                    {{usermsgs.createdAt | date: ' hh:mm a'}}
+               </span>
+          </p>
+     </div>                                      
+     </div>                        
+</div>                           
+</div>
+</div>
+
+
+<div *ngFor="let partis of allparticipants;let z= index ;let lastcall=last">
+     <div *ngIf="loadchats.length >0 && partis.id == obj.id && partis.show =='no' ">                       
+          <div *ngIf="lastcall">
+          <div class="popup-messages" id="chatwindow_{{obj.id}}"></div>
+          </div>         
+          
      
-                    <div *ngIf="usermsgs.sender == obj.id" style=" clear:both;">
-                    <p class="msg2">
-                         {{usermsgs.message}}
-                         <br>
-                         <span style="float: left;color: #999;font-size: 13px;">
-                              {{usermsgs.createdAt | date: ' hh:mm a'}}
-                         </span>
-                    </p>
-               </div>                                      
-            </div>                        
-         </div> 
-               <div class="inputbtn" id="btn_{{obj.id}}"> 
-                 <input id="msg_{{obj.id}}" type="text" placeholder="  Type a message" (keyup.enter)="send(obj.id,obj.name)">   
-                 <button type="submit" (click)="send(obj.id,obj.name)">Send</button> 
-               </div>                    
-          </div>
-         </div>
-       </div>
-       </div>      
      </div>
 </div>
+
+          
+<div class="inputbtn" id="btn_{{obj.id}}"> 
+     <input id="msg_{{obj.id}}" type="text" placeholder="  Type a message" (keyup.enter)="send(obj.id,obj.name)">   
+     <button type="submit" (click)="send(obj.id,obj.name)">Send</button> 
+</div>   
+</div>
+</div>      
+</div>
+</div>
+                    
 
                      <!-- chatbox end here -->
 
           <!-- when chatboxes are more than 3 then toggle button will show -->
 
 <div class="togglebtn" *ngIf='togglearray.length > 0'>
-               <button (click)="toggle()" >^</button>
-           <ul *ngIf="show">    
-           <li  class="togglelist" *ngFor='let obj of togglearray' 
-               (click)="register_popup(obj.id, obj.name)">
-               <span>{{obj.name}}</span>
-               <div class="tglist-right" (click)="removetglist(obj.id)">X</div> 
-               
-          </li>   
-     </ul>
+     <button (click)="toggle()" >^</button>
+  <ul *ngIf="show">    
+     <li  class="togglelist" *ngFor='let obj of togglearray' 
+     (click)="register_popup(obj.id, obj.name,obj.profilepic)">
+     <span>{{obj.name}}</span>
+     <div class="tglist-right" (click)="removetglist(obj.id)">X</div> 
           
-     
+     </li>   
+  </ul>
 </div>
 
 
