@@ -265,7 +265,7 @@ a:hover .showme {
 @media only screen and (max-width : 900px) 
 {
     .popup-box{
-        width: 240px;
+        width: 200px;
     }
 }
 
