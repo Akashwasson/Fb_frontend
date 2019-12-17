@@ -223,7 +223,7 @@ sharepost(id){
    postid: id
  }
  this.dataservice.addsharedpost(obj).subscribe(data=>{
-  this.router.navigateByUrl('/userprofile');
+  alert("shared succesfully")
  })
 }
 
