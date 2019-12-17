@@ -87,7 +87,7 @@ email =localStorage.getItem('email');
          arr.unshift(sdata[0][i])
         }  
         this.posts = arr;
-        
+       
       })
      
     });
