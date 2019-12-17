@@ -32,6 +32,7 @@ export class ChatbarComponent implements OnInit {
   userid="";
   chats:Array<any>=[];
   msgseen:Array<any>=[];
+  allparticipants:Array<any>=[];
   one;
   two;
 
@@ -45,8 +46,9 @@ export class ChatbarComponent implements OnInit {
     
     //loading all chats history 
     this.one = this.chatService.getPrevMessages().subscribe((data)=>{
-      if(data != null){
-        this.loadchats.push(data); 
+     
+      if(data != null){        
+        this.loadchats.push(data);
         var sender = data.messages;
          var array=[];
 
@@ -63,18 +65,24 @@ export class ChatbarComponent implements OnInit {
            }
                         
         }      
-        }       
+        }    
+
         if(this.loadchats.length >0){
+          let finalid = null;
+          let scrollId = data.participants.map(item=>item.id) 
+            scrollId.forEach((item) => {
+              if(item !=this.userid){
+                 finalid = item
+              }
+              
+            });
           setTimeout(() => {
-            this.scrollfun(this.chatbox)
+            this.scrollfun(finalid)
           }, 100);
-        }
-                 
-          this.chatService.seen(array);
-      } else{
-        this.loadchats=[]
-      }
-     
+        }              
+        this.chatService.seen(array);
+      } 
+      
     });
     
     // listing friends name in chatbar
@@ -114,21 +122,27 @@ export class ChatbarComponent implements OnInit {
  
     //  get live messages from friends
   this.two=this.chatService.getMessages().subscribe((data) => {
-  
+
      let chat =document.getElementById('chatwindow_'+data.reciever);
      let chat1 =document.getElementById('chatwindow_'+data.sender);
 
      if(chat1!=null){
-
-       if(this.loadchats.length >0){
+       if(this.loadchats.length >0 ){
         let data_index = this.loadchats.filter(function (element) {
           return element.participants.some( function (subElement) {
               return subElement.id == data.sender
           });
         });
-        data_index[0].messages.push(data);
+        
+        if(data_index.length >0){
+          data_index[0].messages.push(data);
+        }
+        else{
+          this.chatService.loadmessages(data.sender,data.reciever);
+        }
+        
         setTimeout(() => {
-          this.scrollfun(this.chatbox)
+          this.scrollfun(data.sender)
         }, 50);
        }
        else{
@@ -138,15 +152,21 @@ export class ChatbarComponent implements OnInit {
      }
 
      if(chat!=null){
-      if(this.loadchats.length >0){
+      if(this.loadchats.length >0){       
         let data_index = this.loadchats.filter(function (element) {
           return element.participants.some( function (subElement) {
               return subElement.id == data.reciever
           });
         });
-        data_index[0].messages.push(data);
+        
+        if(data_index.length >0){
+          data_index[0].messages.push(data);
+        }
+        else{
+          this.chatService.loadmessages(data.sender,data.reciever);
+        }
         setTimeout(() => {
-        this.scrollfun(this.chatbox)
+        this.scrollfun(data.reciever)
         }, 50);
       }
       else{
@@ -186,30 +206,49 @@ this.notify.push(obj)
   register_popup(id,name,pic){
     // for loading chat of users 
     this.chatbox = id;
-    this.chatService.loadmessages(this.userid,id);
-      
     let index=this.userlist.findIndex(item=> id ==item.id);
     let idno=this.userlist.filter(item=> id==item.id).map(item=>item.id);
- 
     //if chatbox is already opened then unshift it
-    if(idno == id){
-    let same=this.userlist.find(item=> id==item.id);
-    this.userlist.unshift(same);
-    this.userlist.splice(index+1,1)
-    
+    if(idno == id){   
+    if(index!=-1){ this.userlist.splice(index,1)} 
+    let input={id:id,name:name,profilepic: pic};
+    this.userlist.unshift(input);
     }
     
     else{
       //for new chatbox
       let input={id:id,name:name,profilepic: pic};
       this.userlist.unshift(input);
+      this.chatService.loadmessages(this.userid,id);
+      this.chatService.getPrevMessages().subscribe((data)=>{
+        if(data!= null){
+          let obj={id:id, show: "yes"}
+          this.allparticipants.push(obj)
+        }
+        else{
+          let obj={id:id, show: "no"}
+          this.allparticipants.push(obj)
+        }
+        
+      })
+     
+      
       // for toggle button
       if (this.userlist.length >3){
         let last=this.userlist.pop();
         this.togglearray.push(last);
+
+         let data_index = this.loadchats.findIndex(function (element) {
+          return element.participants.some( function (subElement) {
+              return subElement.id == last.id
+          });
+      });
+
+     // removing from loadchats array
+         this.loadchats.splice(data_index,1)
         let idno1=this.togglearray.filter(item=> id==item.id).map(item=>item.id);
         let index1=this.togglearray.findIndex(item=> id ==item.id);
-      
+        
         if(idno1 ==id){
         let sp=this.togglearray.splice(index1,1)
           }
@@ -220,7 +259,6 @@ this.notify.push(obj)
     
   //on closing chatbox
   remove(id){
-
    let data_index = this.loadchats.findIndex(function (element) {
       return element.participants.some( function (subElement) {
           return subElement.id == id
@@ -278,7 +316,7 @@ this.notify.push(obj)
     top.classList.toggle('toggleminibar');
   }
 
-  //unsubscribing the chat component
+  //unsubscribing chat component
   ngOnDestroy() { 
     this.one.unsubscribe();
     this.two.unsubscribe();
